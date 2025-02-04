@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 06:12:01 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/01 07:35:11 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:04:47 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 int main(int ac, char **av)
 {
-	t_stack_node a;
-	t_stack_node b;
+	t_stack_node *a;
+	t_stack_node *b;
 
 	a = NULL;
 	b = NULL;
 	if (ac < 2 || (ac >= 2 && !av[1][0]))
+	{
+		//print error using ft_printf;
 		return (error message);
+	}
 	if (ac == 2)
-		ft_split(av[1], ' ');
-	stack_a(&a, av + 1);
-	if (!stack_sorted)
+		splitv2(av[1], ' ');
+	populate_stack_A(&a, av + 1);
+	if (!stack_sort_check)
 	{
 		if (stack_length(a) == 2)
 			sa(&a, false);

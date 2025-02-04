@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:54:07 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/26 09:55:36 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/01 19:26:57 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+#include <stdbool.h>
 
 size_t	ft_strlen(const char *s);
 char	**ft_split(char const *s, char c);

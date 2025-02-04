@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:34:58 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/01 05:55:28 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:26:24 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,20 @@
 
 
 
-#include <stdbool.h>
-#include <limits.h>
-#include
-#include
+# include <stdbool.h>
+# include <limits.h>
+# include <stdlib.h>
 
 
+
+
+
+
+
+
+
+void	populate_stack_A(char **av, t_stack_node a);
+char	**split(char *s, char c);
 
 
 
@@ -36,17 +44,6 @@ typedef struct s_stack_node
 	struct s_stack_node		*prev;
 	struct s_stack_node		*targeted_node;
 }	t_stack_node
-
-
-
-
-
-
-
-
-
-
-
 
 
 #endif
