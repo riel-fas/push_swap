@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 03:24:15 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/07 03:14:18 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/07 19:17:09 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	append_to_stack_A(t_stack_node **stack, int nb)
 	}
 }
 
-//Define a function that returns the pointer to the last node
+//function that returns the pointer to the last node
 static t_stack_node	*find_last_node(t_stack_node *stack)
 {
 	if (!stack)

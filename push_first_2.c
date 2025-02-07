@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_sort_check.c                                 :+:      :+:    :+:   */
+/*   push_first_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:05:07 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/07 19:16:46 by riel-fas         ###   ########.fr       */
+/*   Created: 2025/02/07 23:25:40 by riel-fas          #+#    #+#             */
+/*   Updated: 2025/02/07 23:50:17 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	stack_sort_check(t_stack_node *stack)
+void	push_first_2(t_stack_node **a, t_stack_node **b)
 {
-	// if (!(*stack))
-	// 	return ();
-	while (stack ->next)
-	{
-		if (stack->nbr > stack->next->nbr)
-			return (false);
-		stack = stack->next;
-	}
-	return (true);
+	pb(a, b); //we push the first node
+	pb(a, b); //we push the second one
+
+	//make sure the first 2 nodes are sorted
+	if ((*b)->nbr > (*b)->next->nbr)
+		sa_sb(b);
 }

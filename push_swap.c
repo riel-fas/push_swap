@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 06:12:01 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/07 03:21:15 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/07 23:22:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,46 @@ int main(int ac, char **av)
 	}
 	if (ac == 2)
 		splitv2(av[1], ' '); //we split the string of numbers
-	populate_stack_A(&a, av + 1); //populate stack a with nbrs
+	populate_stack_A(&a, **av); //populate stack a with nbrs
 	if (!stack_sort_check(a)) //if stack is not sorted
-
-	________________________________________________________________________//^finished + operations
-____________________________________________________________________________//>not yet
-
 	{
-		if (stack_length(a) == 2)
-			sa(&a, false);
-		else if (stack_length(a) == 3)
-			sort_three(&a);
-		else
-			sort_stacks(&a);
+		//we push numbers from a to b until a have only 3 nbrs
+		//so we keep pushing until 3 is left,
+		//while pushing we keep sorting in b : by
+		//using the other 2 numbers that have been already pushed
+		//we push to b by calculating wich number have the least amount of operations to be pushed
+		//after that we sort nbrs in b
+		// sort the 3 numbers in a
+		//repopulate stack a
+		//if a sort is needed we use opeartions
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}
+	//________________________________________________________________________//^finished + operations
+	// {
+	// 	if (stack_length(a) == 2)
+	// 		sa(&a, false);
+	// 	else if (stack_length(a) == 3)
+	// 		sort_three(&a);
+	// 	else
+	// 		sort_stacks(&a);
+	// }
 	free_stacks(&a, &b);
 }
 
