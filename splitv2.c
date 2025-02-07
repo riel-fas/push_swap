@@ -6,20 +6,19 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:24:58 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/03 12:29:54 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/06 22:36:13 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-//Define a function that returns the substrings count in a string seperated by a delimiter
 static int	count_words(char *s, char c)
 {
-	int		count; //To store the substring count
-	bool	inside_word; //A flag to indicate whether we are inside a substring or a delimeter
+	int		count;
+	bool	inside_word;
 
 	count = 0;
-	while (*s) //Loop until the end of the string is reached
+	while (*s)
 	{
 		inside_word = false; //Set the bool to false to start the loop
 		while (*s == c) //While the current character is the delimeter

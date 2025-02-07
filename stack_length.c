@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_a.c                                          :+:      :+:    :+:   */
+/*   stack_length.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/01 18:29:16 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/01 19:36:16 by riel-fas         ###   ########.fr       */
+/*   Created: 2025/02/07 00:27:32 by riel-fas          #+#    #+#             */
+/*   Updated: 2025/02/07 00:50:23 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	stack_a(t_stack_node **a, char **av)
+int	stack_length(t_stack_node *stack)
 {
-	bool x;
-	int y;
+	int x;
 
-
-
-
-
-
-
+	x = 0;
+	while (stack->next)
+	{
+		x++;
+		stack = stack->next
+	}
+	return (x);
 }

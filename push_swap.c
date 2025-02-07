@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 06:12:01 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/03 16:04:47 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/07 03:21:15 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 
 int main(int ac, char **av)
 {
-	t_stack_node *a;
-	t_stack_node *b;
+	t_stack_node *a; //stack A
+	t_stack_node *b; //stack B
 
 	a = NULL;
 	b = NULL;
-	if (ac < 2 || (ac >= 2 && !av[1][0]))
+	if (ac < 2 || (ac >= 2 && !av[1][0])) //if ac !=2 or the string of numbers is empty
 	{
-		//print error using ft_printf;
-		return (error message);
+		// print error using ft_printf;
+		// return (error message);
 	}
 	if (ac == 2)
-		splitv2(av[1], ' ');
-	populate_stack_A(&a, av + 1);
-	if (!stack_sort_check)
+		splitv2(av[1], ' '); //we split the string of numbers
+	populate_stack_A(&a, av + 1); //populate stack a with nbrs
+	if (!stack_sort_check(a)) //if stack is not sorted
+
+	________________________________________________________________________//^finished + operations
+____________________________________________________________________________//>not yet
+
 	{
 		if (stack_length(a) == 2)
 			sa(&a, false);

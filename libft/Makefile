@@ -1,6 +1,6 @@
-NAME	=	libft.a
+NAME = libft.a
 
-CC	= cc
+CC = cc
 
 CCFLAGS	= -Wall -Wextra -Werror
 

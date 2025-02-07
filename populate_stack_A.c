@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   populate_stack.c                                   :+:      :+:    :+:   */
+/*   populate_stack_A.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 03:24:15 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/03 14:10:47 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/07 03:14:18 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,28 @@ static long	atoi_v2(char *av)
 	}
 	return (result * sign);
 }
-static void	append_to_stack(t_stack_node **stack, int nb)
+static void	append_to_stack_A(t_stack_node **stack, int nb)
 {
 	t_stack_node	*node;
 	t_stack_node	*last_node;
 
-	// if (!stack)
-	// {
-
-
-	// }
-	node = maloc(sizeof(t_stack_node));
-	if (!node)
-	{
+	if (!stack)
 		return ;
-	}
+	node = malloc(sizeof(t_stack_node));
+	if (!node)
+		return ;
 	node->next = NULL;
 	node->nbr = nb;
- 	if (!*stack)
+ 	if (!*stack) //if stack a is empty
 	{
 		*stack = node;
 		node->prev = NULL;
 	}
-	else
+	else //if theres already nbrs in the stack a its finds the last node then set prev to it and next to null
 	{
 		last_node = find_last_node(stack);
 		last_node->next = node;
-		node->next = last_node;
+		node->prev = last_node;
 	}
 }
 
@@ -77,7 +72,7 @@ static t_stack_node	*find_last_node(t_stack_node *stack)
 	return (stack);
 }
 
-void	populate_stack_A(char **av, t_stack_node a)
+void	populate_stack_A(t_stack_node **a, char **av)
 {
 	long nb;
 	int x;
@@ -87,7 +82,7 @@ void	populate_stack_A(char **av, t_stack_node a)
 		nb = atoi_v2(av[x]);
 		x++;
 	}
-	append_to_node(a, (int)nb);
+	append_to_stack_A(a, (int)nb);
 }
 
 
