@@ -6,68 +6,143 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 06:12:01 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/07 23:22:00 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/08 05:50:22 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+void error_exit(void)
+{
+    write(2, "Error\n", 6);
+    exit(1);
+}
+
+void free_stack(t_stack_node **stack)
+{
+    t_stack_node *tmp;
+
+    while (*stack)
+    {
+        tmp = *stack;
+        *stack = (*stack)->next;
+        free(tmp);
+    }
+}
+
+void free_args(char **args)
+{
+    int i = 0;
+
+    while (args[i])
+    {
+        free(args[i]);
+        i++;
+    }
+    free(args);
+}
+
+// void push_swap(t_stack_node **a, t_stack_node **b)
+// {
+//     if (stack_sort_check(*a))
+//         return;
+
+//     push_first_2(a, b);
+//     push_nodes_to_b(a, b);
+//     sort_three(a);
+//     sort_stack_b(b);
+//     push_back_to_a(a, b);
+//     final_adjustments(a);
+// }
+
+
+void print_stack(t_stack_node *stack, const char *name)
+{
+    printf("%s: ", name);
+    while (stack)
+    {
+        printf("%d ", stack->nbr);
+        stack = stack->next;
+    }
+    printf("\n");
+}
+
+void push_swap(t_stack_node **a, t_stack_node **b)
+{
+    if (stack_sort_check(*a))
+    {
+        printf("Stack is already sorted\n");
+        return;
+    }
+
+    printf("Initial stack A:\n");
+    print_stack(*a, "A");
+
+    printf("Pushing first 2 elements to stack B\n");
+    push_first_2(a, b);
+    print_stack(*a, "A");
+    print_stack(*b, "B");
+
+    printf("Pushing nodes to stack B\n");
+    push_nodes_to_b(a, b);
+    print_stack(*a, "A");
+    print_stack(*b, "B");
+
+    printf("Sorting the last 3 elements in stack A\n");
+    sort_three(a);
+    print_stack(*a, "A");
+
+    printf("Sorting stack B\n");
+    sort_stack_b(b);
+    print_stack(*b, "B");
+
+    printf("Pushing elements back to stack A\n");
+    push_back_to_a(a, b);
+    print_stack(*a, "A");
+
+    printf("Final adjustments\n");
+    final_adjustments(a);
+    print_stack(*a, "A");
+}
+
+
 int main(int ac, char **av)
 {
-	t_stack_node *a; //stack A
-	t_stack_node *b; //stack B
+    t_stack_node *a = NULL; // Stack A
+    t_stack_node *b = NULL; // Stack B
+    char **args = av;
 
-	a = NULL;
-	b = NULL;
-	if (ac < 2 || (ac >= 2 && !av[1][0])) //if ac !=2 or the string of numbers is empty
-	{
-		// print error using ft_printf;
-		// return (error message);
-	}
-	if (ac == 2)
-		splitv2(av[1], ' '); //we split the string of numbers
-	populate_stack_A(&a, **av); //populate stack a with nbrs
-	if (!stack_sort_check(a)) //if stack is not sorted
-	{
-		//we push numbers from a to b until a have only 3 nbrs
-		//so we keep pushing until 3 is left,
-		//while pushing we keep sorting in b : by
-		//using the other 2 numbers that have been already pushed
-		//we push to b by calculating wich number have the least amount of operations to be pushed
-		//after that we sort nbrs in b
-		// sort the 3 numbers in a
-		//repopulate stack a
-		//if a sort is needed we use opeartions
+    if (ac < 2 || (ac == 2 && !av[1][0])) // Check for valid input
+        error_exit();
 
-		
+    if (ac == 2)
+        args = splitv2(av[1], ' '); // Split numbers if single string is provided
 
+    populate_stack_A(&a, args); // Populate stack A with numbers
 
+    if (stack_sort_check(a)) // If already sorted, free memory and exit
+    {
+        free_stack(&a);
+        if (ac == 2)
+            free_args(args);
+        return (0);
+    }
 
+    push_swap(&a, &b);
 
+    // Free memory before exiting
+    free_stack(&a);
+    free_stack(&b);
+    if (ac == 2)
+        free_args(args);
 
-
-
-
-
-
-
-
-
-
-
-
-	}
-	//________________________________________________________________________//^finished + operations
-	// {
-	// 	if (stack_length(a) == 2)
-	// 		sa(&a, false);
-	// 	else if (stack_length(a) == 3)
-	// 		sort_three(&a);
-	// 	else
-	// 		sort_stacks(&a);
-	// }
-	free_stacks(&a, &b);
+    return (0);
 }
+
+
+
+
+
 
 //1/ declaring 2 pointers for 2 linked lists for stacks A and B
 	//set them both to null to avoid u.b

@@ -1,42 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   populate_stack_A.c                                 :+:      :+:    :+:   */
+/*   stack_utils_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 03:24:15 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/07 19:17:09 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/08 05:42:43 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
-static long	atoi_v2(char *av)
-{
-	int		sign ;
-	int		x;
-	long	result;
-
-	x = 0;
-	sign = 1;
-	result = 1;
-	while ((av[x] >= 9 && av[x] <= 13) || av[x] == 32)
-		x++;
-	if (av[x] == '+' || av[x] == '-')
-	{
-		if (av[x] == '-')
-			sign = -1;
-		x++;
-	}
-	while (av[x] >= 48 && av[x] <= 57)
-	{
-		result = result * 10 + (av[x] - 48);
-		x++;
-	}
-	return (result * sign);
-}
 static void	append_to_stack_A(t_stack_node **stack, int nb)
 {
 	t_stack_node	*node;
@@ -56,33 +31,28 @@ static void	append_to_stack_A(t_stack_node **stack, int nb)
 	}
 	else //if theres already nbrs in the stack a its finds the last node then set prev to it and next to null
 	{
-		last_node = find_last_node(stack);
+		last_node = find_last_node(*stack);
 		last_node->next = node;
 		node->prev = last_node;
 	}
 }
 
-//function that returns the pointer to the last node
-static t_stack_node	*find_last_node(t_stack_node *stack)
+void populate_stack_A(t_stack_node **a, char **av)
 {
-	if (!stack)
-		return (NULL);
-	while (stack->next) //Loop until the end of the stack is reached
-		stack = stack->next;
-	return (stack);
-}
+    long nb;
+    int x = 0;
 
-void	populate_stack_A(t_stack_node **a, char **av)
-{
-	long nb;
-	int x;
-
-	while (av[x])
-	{
-		nb = atoi_v2(av[x]);
-		x++;
-	}
-	append_to_stack_A(a, (int)nb);
+    while (av[x])
+    {
+        nb = atoi_v2(av[x]);
+        if (nb > INT_MAX || nb < INT_MIN) // Check for integer overflow
+        {
+            free_stack(a);
+            error_exit();
+        }
+        append_to_stack_A(a, (int)nb);
+        x++;
+    }
 }
 
 

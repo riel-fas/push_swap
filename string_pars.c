@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   splitv2.c                                          :+:      :+:    :+:   */
+/*   string_pars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 11:24:58 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/06 22:36:13 by riel-fas         ###   ########.fr       */
+/*   Created: 2025/02/08 04:33:39 by riel-fas          #+#    #+#             */
+/*   Updated: 2025/02/08 05:43:03 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 static int	count_words(char *s, char c)
 {
@@ -60,7 +60,7 @@ static char	*get_next_word(char *s, char c)
 }
 
 //Define a function that returns the substrings in a string seperated by a delimiter
-char	**split(char *s, char c)
+char	**splitv2(char *s, char c)
 {
 	int		words_count; //Used to keep track of the number of substrings in the string
 	char	**result_array; //To store a pointer to pointers, the array of all the substrings
@@ -89,3 +89,24 @@ char	**split(char *s, char c)
 	return (result_array);
 }
 
+long atoi_v2(char *av)
+{
+    int sign = 1;
+    int x = 0;
+    long result = 0;
+
+    while ((av[x] >= 9 && av[x] <= 13) || av[x] == 32)
+        x++;
+    if (av[x] == '+' || av[x] == '-')
+    {
+        if (av[x] == '-')
+            sign = -1;
+        x++;
+    }
+    while (av[x] >= '0' && av[x] <= '9')
+    {
+        result = result * 10 + (av[x] - '0');
+        x++;
+    }
+    return (result * sign);
+}

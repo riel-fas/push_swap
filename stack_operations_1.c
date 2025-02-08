@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations_1.c                                     :+:      :+:    :+:   */
+/*   stack_operations_1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 01:23:12 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/07 18:58:48 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/08 05:46:11 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,21 @@ void	pa(t_stack_node **a, t_stack_node **b)
 	*a = top_b;  // Update A head
 }
 
-void	pb(t_stack_node **a, t_stack_node **b)
+void pb(t_stack_node **a, t_stack_node **b)
 {
-	t_stack_node	*top_a;
+    t_stack_node *top_a;
 
-	// if (!stack_a || !*stack_a)  // Check if A is empty
-		// return;
-	top_a = *a; // Get the top node of A
-	*a = top_a->next;  // Move A head to the next node
-	if (*a)
-		(*a)->prev = NULL;
-	top_a->next = *b; // Attach A top node to B head
-	if (*b)
-		(*b)->prev = top_a;
-	*b = top_a;  // Update B head
+    if (!a || !*a) // Check if stack A is empty
+        return;
+
+    top_a = *a; // Get the top node of A
+    *a = top_a->next; // Move A head to the next node
+    if (*a)
+        (*a)->prev = NULL;
+
+    top_a->next = *b; // Attach A top node to B head
+    if (*b)
+        (*b)->prev = top_a;
+
+    *b = top_a; // Update B head
 }
