@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:34:58 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/08 05:37:18 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/16 03:09:51 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,12 @@ int get_position(t_stack_node *node);  // Get position of a node in the stack
 t_stack_node *find_best_insert_position(t_stack_node *a, int value);  // Find best position to insert in stack B
 t_stack_node *find_best_node_to_push(t_stack_node *a, t_stack_node *b);  // Find the best node to push from A to B
 t_stack_node *find_cheapest_node(t_stack_node *a, t_stack_node *b);  // Find node with lowest cost
+
+void free_args(char **args);
+bool is_duplicate(t_stack_node *stack, int num);
+t_stack_node *create_node(int nbr);
+void add_node_to_stack(t_stack_node **stack, t_stack_node *new_node);
+
+
 
 #endif

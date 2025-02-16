@@ -6,30 +6,54 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 01:23:12 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/08 05:46:11 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/16 01:24:02 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sa_sb(t_stack_node **stack)
-{
-	t_stack_node	*first;
-	t_stack_node	*second;
+// void	sa_sb(t_stack_node **stack)
+// {
+// 	t_stack_node	*first;
+// 	t_stack_node	*second;
 
-	first = *stack; //the head
-	second = first->next;
-	//swapping next
-	first -> next = second->next;
-	second -> next = first;
-	//swapping prev
-	second -> prev = NULL;
-	first -> prev = second;
-	//if there is more than 2 nodes
-	if (first->next)
-		first -> next -> prev = first;
-	*stack = second; //updating the head
+// 	first = *stack; //the head
+// 	second = first->next;
+// 	//swapping next
+// 	first -> next = second->next;
+// 	second -> next = first;
+// 	//swapping prev
+// 	second -> prev = NULL;
+// 	first -> prev = second;
+// 	//if there is more than 2 nodes
+// 	if (first->next)
+// 		first -> next -> prev = first;
+// 	*stack = second; //updating the head
+// }
+
+void sa_sb(t_stack_node **stack)
+{
+    if (!stack || !*stack || !(*stack)->next) // Ensure stack has at least 2 nodes
+        return;
+
+    t_stack_node *first = *stack;
+    t_stack_node *second = first->next;
+
+    // Swapping next
+    first->next = second->next;
+    second->next = first;
+
+    // Swapping prev
+    second->prev = NULL;
+    first->prev = second;
+
+    // If there is more than 2 nodes
+    if (first->next)
+        first->next->prev = first;
+
+    *stack = second; // Updating the head
 }
+
 
 void	ss(t_stack_node **a, t_stack_node **b)
 {
@@ -61,21 +85,42 @@ void	rr(t_stack_node **a, t_stack_node **b)
 	ra_rb(b);
 }
 
-void	pa(t_stack_node **a, t_stack_node **b)
-{
-	t_stack_node	*top_b;
+// void	pa(t_stack_node **a, t_stack_node **b)
+// {
+// 	t_stack_node	*top_b;
 
-	// if (!b || !*b)  // Check if B is empty
-		// return;
-	top_b = *b;  // Get the top node of B
-	*b = top_b->next; // Move B head to the next node
-	if (*b)
-		(*b)->prev = NULL;
-	top_b->next = *a; // Attach B top node to A head
-	if (*a)
-		(*a)->prev = top_b;
-	*a = top_b;  // Update A head
+// 	// if (!b || !*b)  // Check if B is empty
+// 		// return;
+// 	top_b = *b;  // Get the top node of B
+// 	*b = top_b->next; // Move B head to the next node
+// 	if (*b)
+// 		(*b)->prev = NULL;
+// 	top_b->next = *a; // Attach B top node to A head
+// 	if (*a)
+// 		(*a)->prev = top_b;
+// 	*a = top_b;  // Update A head
+// }
+
+void pa(t_stack_node **a, t_stack_node **b)
+{
+    if (!b || !*b) // Check if B is empty
+        return;
+
+    t_stack_node *top_b = *b; // Get the top node of B
+    *b = top_b->next; // Move B head to the next node
+    if (*b)
+        (*b)->prev = NULL;
+
+    top_b->next = *a; // Attach B top node to A head
+    if (*a)
+        (*a)->prev = top_b;
+
+    *a = top_b; // Update A head
 }
+
+
+
+
 
 void pb(t_stack_node **a, t_stack_node **b)
 {

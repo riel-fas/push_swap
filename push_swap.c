@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 06:12:01 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/08 05:50:22 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/16 03:06:09 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ void free_stack(t_stack_node **stack)
     }
 }
 
-void free_args(char **args)
-{
-    int i = 0;
+// void free_args(char **args)
+// {
+//     int i = 0;
 
-    while (args[i])
-    {
-        free(args[i]);
-        i++;
-    }
-    free(args);
-}
+//     while (args[i])
+//     {
+//         free(args[i]);
+//         i++;
+//     }
+//     free(args);
+// }
 
 // void push_swap(t_stack_node **a, t_stack_node **b)
 // {
@@ -106,6 +106,79 @@ void push_swap(t_stack_node **a, t_stack_node **b)
 }
 
 
+// void push_swap(t_stack_node **a, t_stack_node **b)
+// {
+//     if (stack_sort_check(*a))
+//     {
+//         printf("Stack is already sorted\n");
+//         return;
+//     }
+
+//     printf("Initial stack A:\n");
+//     print_stack(*a, "A");
+
+//     printf("Pushing first 2 elements to stack B\n");
+//     push_first_2(a, b);
+//     print_stack(*a, "A");
+//     print_stack(*b, "B");
+
+//     printf("Pushing nodes to stack B\n");
+//     push_nodes_to_b(a, b);
+//     print_stack(*a, "A");
+//     print_stack(*b, "B");
+
+//     printf("Sorting the last 3 elements in stack A\n");
+//     sort_three(a);
+//     print_stack(*a, "A");
+
+//     printf("Sorting stack B\n");
+//     sort_stack_b(b);
+//     print_stack(*b, "B");
+
+//     printf("Pushing elements back to stack A\n");
+//     push_back_to_a(a, b);
+//     print_stack(*a, "A");
+
+//     printf("Final adjustments\n");
+//     final_adjustments(a);
+//     print_stack(*a, "A");
+// }
+
+
+// int main(int ac, char **av)
+// {
+//     t_stack_node *a = NULL; // Stack A
+//     t_stack_node *b = NULL; // Stack B
+//     char **args = av;
+
+//     if (ac < 2 || (ac == 2 && !av[1][0])) // Check for valid input
+//         error_exit();
+
+//     if (ac == 2)
+//         args = splitv2(av[1], ' '); // Split numbers if single string is provided
+
+//     populate_stack_A(&a, args); // Populate stack A with numbers
+
+//     if (stack_sort_check(a)) // If already sorted, free memory and exit
+//     {
+//         free_stack(&a);
+//         if (ac == 2)
+//             free_args(args);
+//         return (0);
+//     }
+
+//     push_swap(&a, &b);
+
+//     // Free memory before exiting
+//     free_stack(&a);
+//     free_stack(&b);
+//     if (ac == 2)
+//         free_args(args);
+
+//     return (0);
+// }
+
+
 int main(int ac, char **av)
 {
     t_stack_node *a = NULL; // Stack A
@@ -118,6 +191,9 @@ int main(int ac, char **av)
     if (ac == 2)
         args = splitv2(av[1], ' '); // Split numbers if single string is provided
 
+    if (!args)
+        error_exit();
+
     populate_stack_A(&a, args); // Populate stack A with numbers
 
     if (stack_sort_check(a)) // If already sorted, free memory and exit
@@ -125,7 +201,7 @@ int main(int ac, char **av)
         free_stack(&a);
         if (ac == 2)
             free_args(args);
-        return (0);
+        return 0;
     }
 
     push_swap(&a, &b);
@@ -136,7 +212,7 @@ int main(int ac, char **av)
     if (ac == 2)
         free_args(args);
 
-    return (0);
+    return 0;
 }
 
 

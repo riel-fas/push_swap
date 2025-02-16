@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 04:40:24 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/08 05:45:49 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/16 01:33:13 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void push_first_2(t_stack_node **a, t_stack_node **b)
     pb(a, b); // Push the second node
 
     // Make sure the first 2 nodes in B are sorted
-    if ((*b)->nbr > (*b)->next->nbr)
+    if ((*b) && (*b)->next && (*b)->nbr > (*b)->next->nbr)
         sa_sb(b);
 }
 
@@ -64,7 +64,6 @@ int get_position_cost(t_stack_node *node)
     return (cost);
 }
 
-//moves in B
 int get_insert_position_cost(t_stack_node *node, t_stack_node *b)
 {
     int cost = 0;
@@ -72,13 +71,29 @@ int get_insert_position_cost(t_stack_node *node, t_stack_node *b)
 
     while (tmp)
     {
-        if (tmp->nbr > node->nbr && tmp->next->nbr < node->nbr)
+        if (tmp->next && tmp->nbr > node->nbr && tmp->next->nbr < node->nbr)
             break;
         cost++;
         tmp = tmp->next;
     }
-    return (cost);
+    return cost;
 }
+
+//moves in B
+// int	get_insert_position_cost(t_stack_node *node, t_stack_node *b)
+// {
+//     int cost = 0;
+//     t_stack_node *tmp = b;
+
+//     while (tmp)
+//     {
+//         if (tmp->nbr > node->nbr && tmp->next->nbr < node->nbr)
+//             break;
+//         cost++;
+//         tmp = tmp->next;
+//     }
+//     return (cost);
+// }
 
 t_stack_node *find_cheapest_node(t_stack_node *a, t_stack_node *b)
 {
