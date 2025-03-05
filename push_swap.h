@@ -36,6 +36,14 @@ void sort_stack_b(t_stack_node **b);
 void push_back_to_a(t_stack_node **a, t_stack_node **b);
 void final_adjustments(t_stack_node **a);
 
+
+
+t_stack_node *find_max(t_stack_node *stack);
+int find_median(t_stack_node *stack);
+void check_duplicates(t_stack_node *stack);
+
+
+
 // Stack utility functions
 bool	stack_sort_check(t_stack_node *stack);
 
@@ -67,7 +75,7 @@ void rrr(t_stack_node **a, t_stack_node **b); // Reverse rotate A and B
 
 // Other utility functions
 t_stack_node *find_min(t_stack_node *stack);   // Find the minimum element in stack A
-void move_to_top(t_stack_node **stack, t_stack_node *target); // Move node to the top of the stack
+void move_to_top(t_stack_node **stack, t_stack_node *target, char stack_id); // Move node to the top of the stack
 int get_position(t_stack_node *node);  // Get position of a node in the stack
 t_stack_node *find_best_insert_position(t_stack_node *a, int value);  // Find best position to insert in stack B
 t_stack_node *find_best_node_to_push(t_stack_node *a, t_stack_node *b);  // Find the best node to push from A to B

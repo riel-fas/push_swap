@@ -39,8 +39,8 @@
 
 void rra_rrb(t_stack_node **stack, char id)
 {
-    t_stack_node	*last;
-    t_stack_node	*second_last;
+    t_stack_node *last;
+    t_stack_node *second_last;
 
     if (!stack || !*stack || !(*stack)->next)
         return;
@@ -48,6 +48,7 @@ void rra_rrb(t_stack_node **stack, char id)
     last = *stack;
     while (last->next)
         last = last->next;
+
     second_last = last->prev;
     second_last->next = NULL;
     last->prev = NULL;
@@ -55,7 +56,7 @@ void rra_rrb(t_stack_node **stack, char id)
     (*stack)->prev = last;
     *stack = last;
 
-    // Print operation based on id parameter
+    // Print the move
     if (id == 'a')
         write(1, "rra\n", 4);
     else if (id == 'b')
@@ -64,8 +65,7 @@ void rra_rrb(t_stack_node **stack, char id)
 
 void rrr(t_stack_node **a, t_stack_node **b)
 {
-    // Perform reverse rotate operations without printing
-    rra_rrb(a, '\0');
-    rra_rrb(b, '\0');
-    write(1, "rrr\n", 4);
+    rra_rrb(a, '\0'); // Reverse rotate A without printing
+    rra_rrb(b, '\0'); // Reverse rotate B without printing
+    write(1, "rrr\n", 4); // Print "rrr" for the combined operation
 }

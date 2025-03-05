@@ -15,73 +15,65 @@
 //sort the 3 nodes left
 void sort_three(t_stack_node **a)
 {
-	if (!a || !*a || !(*a)->next || !(*a)->next->next) // Ensure stack A has exactly 3 nodes
-		return;
-	if ((*a)->nbr > (*a)->next->nbr && (*a)->nbr > (*a)->next->next->nbr)
-		ra_rb(a, 'a');
-	else if ((*a)->next->nbr > (*a)->nbr && (*a)->next->nbr > (*a)->next->next->nbr)
-		rra_rrb(a, 'a');
-	if ((*a)->nbr > (*a)->next->nbr)
-		sa_sb(a, 'a');
+    if (!a || !*a || !(*a)->next || !(*a)->next->next)
+        return;
+
+    t_stack_node *first = *a;
+    t_stack_node *second = first->next;
+    t_stack_node *third = second->next;
+
+    if (first->nbr > second->nbr && second->nbr > third->nbr)
+    {
+        sa_sb(a, 'a');
+        rra_rrb(a, 'a');
+    }
+    else if (first->nbr > second->nbr && second->nbr < third->nbr && first->nbr > third->nbr)
+    {
+        ra_rb(a, 'a');
+    }
+    else if (first->nbr > second->nbr && second->nbr < third->nbr && first->nbr < third->nbr)
+    {
+        sa_sb(a, 'a');
+    }
+    else if (first->nbr < second->nbr && second->nbr > third->nbr && first->nbr > third->nbr)
+    {
+        rra_rrb(a, 'a');
+    }
+    else if (first->nbr < second->nbr && second->nbr > third->nbr && first->nbr < third->nbr)
+    {
+        sa_sb(a, 'a');
+        ra_rb(a, 'a');
+    }
 }
 
-void move_to_top(t_stack_node **stack, t_stack_node *target)
+void move_to_top(t_stack_node **stack, t_stack_node *target, char stack_id)
 {
-	bool			found;
-	int				moves_up;
-	t_stack_node	*temp;
-	int				stack_size;
-	int				moves_down;
+    if (!stack || !*stack || !target)
+        return;
 
+    // Calculate the number of rotations needed to bring the target to the top
+    int moves_up = 0;
+    t_stack_node *temp = *stack;
+    while (temp && temp != target)
+    {
+        moves_up++;
+        temp = temp->next;
+    }
 
-	if (!stack || !*stack || !target)
-		return;
-    // Check if target is already at the top
-	if (*stack == target)
-		return;
-    // First, verify the target is actually in the stack
-	temp = *stack;
-	found = false;
-	while (temp)
-	{
-		if (temp == target)
-		{
-			found = true;
-			break;
-		}
-		temp = temp->next;
-	}
-	if (!found)
-		return;  // Target not in stack
-    // Now safely calculate moves
-	moves_up = 0;
-	temp = *stack;
-	while (temp && temp != target)
-	{
-		moves_up++;
-		temp = temp->next;
-	}
-	stack_size = stack_length(*stack);
-	moves_down = stack_size - moves_up;
-    // Move in the most efficient direction
-	if (moves_up <= moves_down)
-	{
-		int  i = 0;
-		while (i < moves_up)
-		{
-			ra_rb(stack, '\0');
-			i++;
-		}
-	}
-	else
-	{
-		int i = 0;
-		while (i < moves_down)
-		{
-			rra_rrb(stack, '\0');
-			i++;
-		}
-	}
+    int stack_size = stack_length(*stack);
+    int moves_down = stack_size - moves_up;
+
+    // Rotate in the most efficient direction
+    if (moves_up <= moves_down)
+    {
+        for (int i = 0; i < moves_up; i++)
+            ra_rb(stack, stack_id); // Pass stack_id instead of '\0'
+    }
+    else
+    {
+        for (int i = 0; i < moves_down; i++)
+            rra_rrb(stack, stack_id); // Pass stack_id instead of '\0'
+    }
 }
 
 int get_position(t_stack_node *node)
@@ -137,16 +129,53 @@ t_stack_node *find_best_insert_position(t_stack_node *a, int nbr)
 
 void push_back_to_a(t_stack_node **a, t_stack_node **b)
 {
-	t_stack_node *target;
+    while (*b)
+    {
+        t_stack_node *target = find_best_insert_position(*a, (*b)->nbr);
+        if (target)
+            move_to_top(a, target, 'a');
+        pa(a, b);
+    }
+}
 
-	while (*b)
-	{
-		if (*a)
-		{
-			target = find_best_insert_position(*a, (*b)->nbr);
-			if (target) // If a position was found
-				move_to_top(a, target);
-		}
-		pa(a, b); // Push from B to A
-	}
+
+int find_median(t_stack_node *stack)
+{
+    int *arr;
+    int i = 0;
+    int len = stack_length(stack);
+    t_stack_node *current = stack;
+
+    if (!stack)
+        return 0;
+
+    // Copy stack values into an array
+    arr = malloc(sizeof(int) * len);
+    if (!arr)
+        return 0;
+
+    while (current)
+    {
+        arr[i++] = current->nbr;
+        current = current->next;
+    }
+
+    // Sort the array
+    for (i = 0; i < len - 1; i++)
+    {
+        for (int j = 0; j < len - i - 1; j++)
+        {
+            if (arr[j] > arr[j + 1])
+            {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+
+    // Find the median
+    int median = arr[len / 2];
+    free(arr);
+    return median;
 }

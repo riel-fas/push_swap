@@ -31,62 +31,65 @@ t_stack_node *find_min(t_stack_node *stack)
 	return (min_node);
 }
 
+t_stack_node *find_max(t_stack_node *stack)
+{
+    t_stack_node *max_node;
+    t_stack_node *current;
+
+    if (!stack)
+        return NULL;
+
+    max_node = stack;
+    current = stack;
+    while (current)
+    {
+        if (current->nbr > max_node->nbr)
+            max_node = current;
+        current = current->next;
+    }
+    return max_node;
+}
+
 void final_adjustments(t_stack_node **a)
 {
-    t_stack_node *min_node;
-
-	min_node = find_min(*a);
-    move_to_top(a, min_node);
+    t_stack_node *min_node = find_min(*a);
+    move_to_top(a, min_node, 'a');
 }
 
 void sort_stack_b(t_stack_node **b)
 {
-	int len;
-	t_stack_node *largest;
-	t_stack_node *current;
+    if (!b || !*b || !(*b)->next)
+        return;
 
-	if (!b || !*b || !(*b)->next)
-		return;
+    t_stack_node *largest = find_max(*b);
 
-	len = stack_length(*b);
-    // For just 2 elements, a simple swap if needed
-	if (len == 2)
-	{
-		if ((*b)->nbr < (*b)->next->nbr)
-			sa_sb(b, 'b');
-		return;
-	}
-    // For more elements, we want to keep the largest at the top of B
-	largest = *b;
-	current = *b;
-	while (current)
-	{
-		if (current->nbr > largest->nbr)
-			largest = current;
-		current = current->next;
-	}
-    // Move the largest to the top
-	move_to_top(b, largest);
-    // Optionally, you could recursively sort the rest of the stack
-    // But since we'll be pushing elements back one by one, this is often enough
+    // Move the largest element to the top of stack B
+    move_to_top(b, largest, 'b');
+
+    // Ensure the stack is sorted
+    while ((*b)->next && (*b)->nbr < (*b)->next->nbr)
+        ra_rb(b, 'b');
 }
 
 void push_nodes_to_b(t_stack_node **a, t_stack_node **b)
 {
-	int count;
-	int max_iterations; // Safety to prevent infinite loops
+    // int median = find_median(*a); // Find the median value in stack A
 
-	max_iterations = 10000;
-	count = 0;
-	while (stack_length(*a) > 3 && count < max_iterations)
-	{
-		t_stack_node *best_node = find_cheapest_node(*a, *b);
-		if (!best_node) // Exit if no valid node found
-			break;
-		move_to_top(a, best_node); // Bring best node to top
-		pb(a, b);
-		count++;
-	}
-	if (count >= max_iterations)
-		write(2, "Warning: Maximum iterations reached in push_nodes_to_b\n", 54);
+    while (stack_length(*a) > 3)
+    {
+        t_stack_node *best_node = find_cheapest_node(*a, *b);
+
+        if (!best_node)
+            break;
+
+        // Move the best node to the top of stack A
+        move_to_top(a, best_node, 'a');
+
+        // Push the node to stack B
+        pb(a, b);
+
+        // Sort stack B if necessary
+        if ((*b)->next && (*b)->nbr < (*b)->next->nbr)
+            sa_sb(b, 'b');
+    }
 }

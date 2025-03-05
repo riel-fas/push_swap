@@ -94,24 +94,48 @@ char	**splitv2(char *s, char c)
 	return (result_array);
 }
 
+/* Updated atoi_v2 function to check for non-numeric input */
 long atoi_v2(char *av)
 {
-    int sign = 1;
-    int x = 0;
-    long result = 0;
+    long result;
+    int sign;
+    int i;
 
-    while ((av[x] >= 9 && av[x] <= 13) || av[x] == 32)
-        x++;
-    if (av[x] == '+' || av[x] == '-')
+    result = 0;
+    sign = 1;
+    i = 0;
+
+    // Skip whitespace
+    while (av[i] == ' ' || av[i] == '\t' || av[i] == '\n' ||
+           av[i] == '\r' || av[i] == '\v' || av[i] == '\f')
+        i++;
+
+    // Handle sign
+    if (av[i] == '-' || av[i] == '+')
     {
-        if (av[x] == '-')
+        if (av[i] == '-')
             sign = -1;
-        x++;
+        i++;
     }
-    while (av[x] >= '0' && av[x] <= '9')
+
+    // Check if there's at least one digit
+    if (!av[i])
+        error_exit();
+
+    // Convert digits
+    while (av[i])
     {
-        result = result * 10 + (av[x] - '0');
-        x++;
+        if (av[i] < '0' || av[i] > '9') // Check for non-numeric characters
+            error_exit();
+
+        result = result * 10 + (av[i] - '0');
+
+        // Check for overflow during calculation
+        if ((sign == 1 && result > INT_MAX) || (sign == -1 && result * sign < INT_MIN))
+            error_exit();
+
+        i++;
     }
+
     return (result * sign);
 }

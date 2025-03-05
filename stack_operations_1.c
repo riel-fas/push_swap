@@ -98,26 +98,27 @@
 
 void sa_sb(t_stack_node **stack, char id)
 {
-    t_stack_node	*first;
-    t_stack_node	*second;
+    t_stack_node *first;
+    t_stack_node *second;
 
     if (!stack || !*stack || !(*stack)->next)
         return;
 
     first = *stack;
     second = first->next;
-    //swapping next
+
+    // Swap the nodes
     first->next = second->next;
     second->next = first;
-    //swapping prev
-    second->prev = NULL;
+    second->prev = first->prev;
     first->prev = second;
-    //if there is more than 2 nodes
+
     if (first->next)
         first->next->prev = first;
-    *stack = second; //updating the head
 
-    // Print operation based on id parameter
+    *stack = second;
+
+    // Print the move
     if (id == 'a')
         write(1, "sa\n", 3);
     else if (id == 'b')
@@ -126,15 +127,15 @@ void sa_sb(t_stack_node **stack, char id)
 
 void ss(t_stack_node **a, t_stack_node **b)
 {
-    sa_sb(a, '\0');
-    sa_sb(b, '\0');
-    write(1, "ss\n", 3);
+    sa_sb(a, '\0'); // Swap A without printing
+    sa_sb(b, '\0'); // Swap B without printing
+    write(1, "ss\n", 3); // Print "ss" for the combined operation
 }
 
 void ra_rb(t_stack_node **stack, char id)
 {
-    t_stack_node	*first;
-    t_stack_node	*last;
+    t_stack_node *first;
+    t_stack_node *last;
 
     if (!stack || !*stack || !(*stack)->next)
         return;
@@ -143,15 +144,15 @@ void ra_rb(t_stack_node **stack, char id)
     last = first;
     while (last->next)
         last = last->next;
-    //make the last node the head of linked list
+
+    // Rotate the stack
     *stack = first->next;
     (*stack)->prev = NULL;
-    //attach the first node to the end of linked list
     first->next = NULL;
     last->next = first;
     first->prev = last;
 
-    // Print operation based on id parameter
+    // Print the move
     if (id == 'a')
         write(1, "ra\n", 3);
     else if (id == 'b')
@@ -160,28 +161,30 @@ void ra_rb(t_stack_node **stack, char id)
 
 void rr(t_stack_node **a, t_stack_node **b)
 {
-    // Perform rotate operations without printing
-    ra_rb(a, '\0');
-    ra_rb(b, '\0');
-    write(1, "rr\n", 3);
+    ra_rb(a, '\0'); // Rotate A without printing
+    ra_rb(b, '\0'); // Rotate B without printing
+    write(1, "rr\n", 3); // Print "rr" for the combined operation
 }
 
 void pa(t_stack_node **a, t_stack_node **b)
 {
-    t_stack_node	*top_b;
+    t_stack_node *top_b;
 
     if (!b || !*b)
         return;
+
     top_b = *b;
     *b = top_b->next;
     if (*b)
         (*b)->prev = NULL;
+
     top_b->next = *a;
     if (*a)
         (*a)->prev = top_b;
+
     *a = top_b;
 
-    write(1, "pa\n", 3);
+    write(1, "pa\n", 3); // Print "pa" for push from B to A
 }
 
 void pb(t_stack_node **a, t_stack_node **b)
@@ -202,5 +205,5 @@ void pb(t_stack_node **a, t_stack_node **b)
 
     *b = top_a;
 
-    write(1, "pb\n", 3);
+    write(1, "pb\n", 3); // Print "pb" for push from A to B
 }

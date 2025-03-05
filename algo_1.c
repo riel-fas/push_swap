@@ -94,25 +94,24 @@ int get_insert_position_cost(t_stack_node *node, t_stack_node *b)
 
 t_stack_node *find_cheapest_node(t_stack_node *a, t_stack_node *b)
 {
-	int				min_cost;
-	int				current_cost;
-	t_stack_node	*best_node;
-	t_stack_node	*current;
+    t_stack_node *best_node = NULL;
+    int min_cost = INT_MAX;
+    t_stack_node *current = a;
 
-	best_node = a;
-	current = a;
-	min_cost = INT_MAX;  // Start with max cost
-	if (!a)
-		return NULL;
-	while (current)
-	{
-		current_cost = get_position_cost(current) + get_insert_position_cost(current, b);
-		if (current_cost < min_cost)
-		{
-			min_cost = current_cost;
-			best_node = current;
-		}
-		current = current->next;
-	}
-	return best_node;
+    while (current)
+    {
+        // Calculate the total cost to move this node to the correct position in B
+        int cost = get_position_cost(current) + get_insert_position_cost(current, b);
+
+        // Update the best node if this one has a lower cost
+        if (cost < min_cost)
+        {
+            min_cost = cost;
+            best_node = current;
+        }
+
+        current = current->next;
+    }
+
+    return best_node;
 }
